@@ -3,27 +3,29 @@ on:
     types: [opened, reopened, ready_for_review]
     branches: ["*"]
   issue_comment:
+    types: [created]
   workflow_dispatch:
+
 jobs:
   pr_agent_job:
-    if: ${{ github.event.sender.type != 'Bot' }}
+    if: ${{ github.event.sender.type != 'Bot' && github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     permissions:
-      issues: write
       pull-requests: write
+      issues: write
       contents: write
-    name: Run pr agent on every pull request, respond to user comments
+      checks: write
+    name: PR Agent Automation
     steps:
-      - name: PR Agent action step
-        id: pragent
+      - name: Run PR Agent
         uses: qodo-ai/pr-agent@main
         env:
           OPENAI_KEY: ${{ secrets.OPEN_ROUTER_KEY }}
           OPENAI_API_BASE: "https://openrouter.ai/api/v1"
           OPENAI_MODEL_NAME: "deepseek/deepseek-chat"
-          GITHUB_TOKEN: ${{ github.token }} # Make sure to add your GitHub token to your repo secrets
-          github_action_config.auto_review: "true" # enable\disable auto review
-          github_action_config.auto_describe: "true" # enable\disable auto describe
-          github_action_config.auto_improve: "false" # enable\disable auto improve
+          GITHUB_TOKEN: ${{ github.token }}  # Changed to default token
+          github_action_config.auto_review: "true"
+          github_action_config.auto_describe: "true"
+          github_action_config.auto_improve: "false"
           PR_CODE_SUGGESTIONS.NUM_CODE_SUGGESTIONS: 6
-          github_action_config.pr_actions: '["opened", "reopened", "ready_for_review", "review_requested"]'
+          github_action_config.pr_actions: '["opened", "reopened", "ready_for_review"]'
