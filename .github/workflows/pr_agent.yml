@@ -21,7 +21,7 @@ jobs:
           OPENAI_KEY: ${{ secrets.OPEN_ROUTER_KEY }}
           OPENAI_API_BASE: "https://openrouter.ai/api/v1"
           OPENAI_MODEL_NAME: "deepseek/deepseek-chat"
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # Make sure to add your GitHub token to your repo secrets
+          GITHUB_TOKEN: ${{ github.token }} # Make sure to add your GitHub token to your repo secrets
           github_action_config.auto_review: "true" # enable\disable auto review
           github_action_config.auto_describe: "true" # enable\disable auto describe
           github_action_config.auto_improve: "false" # enable\disable auto improve
