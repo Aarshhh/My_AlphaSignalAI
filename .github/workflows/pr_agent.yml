@@ -27,5 +27,6 @@ jobs:
           github_action_config.auto_review: "true"
           github_action_config.auto_describe: "true"
           github_action_config.auto_improve: "false"
+          github_action_config.enable_comment_handling: "true"
           PR_CODE_SUGGESTIONS.NUM_CODE_SUGGESTIONS: 6
           github_action_config.pr_actions: '["opened", "reopened", "ready_for_review"]'
