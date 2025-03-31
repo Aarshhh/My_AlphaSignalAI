@@ -2,6 +2,7 @@ on:
   pull_request:
     branches: ["*"]
   issue_comment:
+  workflow_dispatch:
 jobs:
   pr_agent_job:
     if: ${{ github.event.sender.type != 'Bot' }}
